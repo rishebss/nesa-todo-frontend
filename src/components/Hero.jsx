@@ -131,7 +131,9 @@ const Hero = () => {
                 {isDropdownOpen && (
                   <div className="absolute top-full mt-2 w-full sm:w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50 overflow-hidden">
                     <a
-                      href="#frontend"
+                      href="https://github.com/rishebss/nesa-todo-frontend"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors duration-150"
                       onClick={() => setIsDropdownOpen(false)}
                     >
@@ -140,7 +142,9 @@ const Hero = () => {
                     </a>
                     <div className="h-px bg-gray-800"></div>
                     <a
-                      href="#backend"
+                      href="https://github.com/rishebss/nesa-todo-backend"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors duration-150"
                       onClick={() => setIsDropdownOpen(false)}
                     >
@@ -207,26 +211,23 @@ const Hero = () => {
               {/* Stack Connection Visualization */}
               <div className="mt-8 p-5 rounded-xl bg-gray-900/30 border border-gray-800">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="text-gray-400 text-sm">Full Stack Architecture</div>
+                  <div className="text-gray-400 text-sm">Cloud Deployments</div>
                   <div className="h-2 w-8 rounded-full bg-gradient-to-r from-cyan-500 via-green-500 to-sky-500"></div>
                 </div>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-gray-400 text-sm">Frontend</span>
-                    <span className="text-cyan-400 font-medium">React</span>
+                    <span className="text-cyan-400 font-medium">Vercel</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-400 text-sm">Backend</span>
-                    <span className="text-green-400 font-medium">Express</span>
+                    <span className="text-cyan-400 font-medium">Vercel</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-400 text-sm">Database</span>
-                    <span className="text-green-300 font-medium">MongoDB</span>
+                    <span className="text-orange-300 font-medium">Firebase</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-400 text-sm">Styling</span>
-                    <span className="text-sky-400 font-medium">Tailwind</span>
-                  </div>
+                  
                 </div>
               </div>
             </div>
