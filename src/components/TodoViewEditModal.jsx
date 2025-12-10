@@ -256,32 +256,9 @@ const TodoViewEditModal = ({
             </div>
           </div>
 
-          {/* Overdue Warning */}
-          {!isEditing && overdue && (
-            <div className="p-4 bg-gradient-to-r from-red-900/30 to-red-800/20 border border-red-700/50 rounded-lg">
-              <div className="flex items-start gap-3">
-                <AlertTriangle className="h-5 w-5 text-red-400 mt-0.5" />
-                <div>
-                  <p className="font-medium text-red-300">This task is overdue!</p>
-                  <p className="text-sm text-red-400/80 mt-1">
-                    It was due on {formatDate(todo.deadline)} and is now {Math.floor((new Date() - new Date(todo.deadline)) / (1000 * 60 * 60 * 24))} days late.
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
+          
 
-          {/* Dates */}
-          <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-800">
-            <div>
-              <p className="text-sm text-gray-500 mb-1">Created</p>
-              <p className="text-gray-300">{formatDate(todo.createdAt)}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500 mb-1">Last Updated</p>
-              <p className="text-gray-300">{formatDate(todo.updatedAt)}</p>
-            </div>
-          </div>
+    
         </div>
         
         {/* Dialog Footer */}
