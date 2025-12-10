@@ -292,9 +292,9 @@ const Todo = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+      <div className="flex flex-row justify-between items-center gap-4 mb-8">
         <div>
-          <h2 className="text-3xl font-bold text-gray-100">
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-100">
             Task Dashboard
           </h2>
           <p className="text-gray-400">Manage your tasks efficiently</p>
@@ -305,18 +305,16 @@ const Todo = () => {
           className="gap-2 bg-white shadow-lg hover:shadow-xl transition-all"
         >
           <Plus className="h-4 w-4" />
-          Create Task
+          <span className="hidden sm:inline"> Create Task</span>
         </Button>
       </div>
 
       {/* Filters */}
       <div className="bg-gray-900/30 backdrop-blur-sm border-gray-800 rounded-xl p-6 mb-8">
-        <div className="flex flex-col md:flex-row gap-4 items-center">
-          
-          
-          <div className="flex flex-wrap gap-2">
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-nowrap justify-center gap-2 w-full">
             {[
-              { value: '', label: 'All Todos' },
+              { value: '', label: 'All' },
               { value: 'pending', label: 'Pending' },
               { value: 'in-progress', label: 'In Progress' },
               { value: 'completed', label: 'Completed' }
@@ -324,7 +322,7 @@ const Todo = () => {
               <button
                 key={option.value}
                 onClick={() => handleFilterChange(option.value)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
                   filters.status === option.value
                     ? 'bg-white text-gray-900 shadow-md'
                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700'
@@ -333,18 +331,6 @@ const Todo = () => {
                 {option.label}
               </button>
             ))}
-          </div>
-          
-          <div className="md:ml-auto flex-1 max-w-md">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input
-                placeholder="Search tasks..."
-                className="pl-10 bg-gray-800/50 border-gray-700 text-white placeholder-gray-500"
-                value={filters.search}
-                onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-              />
-            </div>
           </div>
         </div>
       </div>
