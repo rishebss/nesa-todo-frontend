@@ -324,7 +324,7 @@ const Todo = () => {
       </div>
 
       {/* Filters */}
-      <div className="bg-gray-900/30 backdrop-blur-sm border-gray-800 rounded-xl p-6 mb-8 mt-[-20px]">
+      <div className="bg-transparent rounded-xl p-6 mb-8 mt-[-20px]">
         <div className="flex flex-col items-center gap-4">
           <div className="flex flex-nowrap justify-center gap-2 w-full">
             {[

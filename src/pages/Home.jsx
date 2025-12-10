@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 
 const Home = () => {
   return (
-    <div className="dark min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black">
+    <div className="dark bg-gradient-to-br from-gray-950 via-gray-900 to-black">
       <Hero />
       <Todo />
       <Toaster 
