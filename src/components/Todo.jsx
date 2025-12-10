@@ -72,14 +72,28 @@ const Todo = () => {
   const loadTodos = async () => {
     setLoading(true);
     try {
-      const { page, limit } = pagination;
-      const response = await todoApi.getTodos(page, limit, filters.status);
-      setTodos(response.data.data);
-      setPagination({
-        ...pagination,
-        total: response.data.total,
-        totalPages: response.data.totalPages
-      });
+        const { page, limit } = pagination;
+      // todoApi.getTodos expects a single params object
+      const response = await todoApi.getTodos({ page, limit, status: filters.status });
+
+      // Debug log to inspect response shape when troubleshooting filters
+      // (api.js already logs requests/responses, this helps examine payload)
+      // eslint-disable-next-line no-console
+      console.debug('loadTodos response:', response?.data);
+
+      // Response shape from backend: { success: true, data: [...], pagination: { total, totalPages, ... } }
+      let items = response.data.data;
+      // Defensive: if API returned a single object (e.g., from a test endpoint), wrap into array
+      if (!Array.isArray(items) && items) items = [items];
+
+      setTodos(items || []);
+
+      const paginationData = response.data.pagination || {};
+      setPagination(prev => ({
+        ...prev,
+        total: paginationData.total ?? prev.total,
+        totalPages: paginationData.totalPages ?? prev.totalPages
+      }));
     } catch (error) {
       toast.error('Failed to load todos');
       console.error(error);
@@ -290,7 +304,7 @@ const Todo = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div id="todo-section" className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
       {/* Header */}
       <div className="flex flex-row justify-between items-center gap-4 mb-8">
         <div>
@@ -310,7 +324,7 @@ const Todo = () => {
       </div>
 
       {/* Filters */}
-      <div className="bg-gray-900/30 backdrop-blur-sm border-gray-800 rounded-xl p-6 mb-8">
+      <div className="bg-gray-900/30 backdrop-blur-sm border-gray-800 rounded-xl p-6 mb-8 mt-[-20px]">
         <div className="flex flex-col items-center gap-4">
           <div className="flex flex-nowrap justify-center gap-2 w-full">
             {[
@@ -348,14 +362,7 @@ const Todo = () => {
           <CardContent className="py-20 text-center">
             <div className="text-gray-400 text-6xl mb-4">📝</div>
             <h3 className="text-xl font-semibold text-gray-300 mb-2">No tasks found</h3>
-            <p className="text-gray-500 mb-6">Get started by creating your first task</p>
-            <Button 
-              onClick={() => setCreateDialogOpen(true)}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Create First Task
-            </Button>
+            
           </CardContent>
         </Card>
       ) : (

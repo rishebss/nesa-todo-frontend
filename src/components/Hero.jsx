@@ -10,6 +10,13 @@ const Hero = () => {
     setMounted(true);
   }, []);
 
+  const scrollToTodoSection = () => {
+    const todoSection = document.getElementById('todo-section');
+    if (todoSection) {
+      todoSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const features = [
     "Deadline tracking with overdue alerts",
     "Real-time status updates",
@@ -81,7 +88,12 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button size="lg" variant="outline" className="gap-3 gap-3 border-gray-700 hover:bg-gray-800 text-white ">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="gap-3 gap-3 border-gray-700 hover:bg-gray-800 text-white"
+                onClick={scrollToTodoSection}
+              >
                 Start Creating Todos
                 <ArrowRight className="h-5 w-5" />
               </Button>
