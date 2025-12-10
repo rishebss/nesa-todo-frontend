@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { todoApi } from '@/services/api';
 import toast from 'react-hot-toast';
-import { 
-  Plus, 
+import {
+  Plus,
   Filter,
   ChevronLeft,
   ChevronRight,
@@ -32,27 +32,27 @@ const Todo = () => {
   const [loading, setLoading] = useState(true);
   const [modalLoading, setModalLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
-  
+
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 6,
     total: 0,
     totalPages: 1
   });
-  
+
   const [filters, setFilters] = useState({
     status: '',
     search: ''
   });
-  
+
   // Dialog states
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
-  
+
   // Selected todo
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  
+
   // Form states
   const [editFormData, setEditFormData] = useState({
     title: '',
@@ -72,7 +72,7 @@ const Todo = () => {
   const loadTodos = async () => {
     setLoading(true);
     try {
-        const { page, limit } = pagination;
+      const { page, limit } = pagination;
       // todoApi.getTodos expects a single params object
       const response = await todoApi.getTodos({ page, limit, status: filters.status });
 
@@ -117,8 +117,8 @@ const Todo = () => {
         </Badge>
       );
     }
-    
-    switch(status) {
+
+    switch (status) {
       case 'completed':
         return <Badge variant="success" className="gap-1"><CheckCircle className="h-3 w-3" /> Completed</Badge>;
       case 'in-progress':
@@ -133,8 +133,8 @@ const Todo = () => {
     if (isOverdue) {
       return "bg-gradient-to-br from-red-950/40 via-red-900/30 to-red-950/40 border-red-700/50 hover:border-red-600";
     }
-    
-    switch(status) {
+
+    switch (status) {
       case 'completed':
         return "bg-gradient-to-br from-green-950/20 via-gray-900/30 to-gray-950/30 border-green-700/30 hover:border-green-600/50";
       case 'in-progress':
@@ -243,7 +243,7 @@ const Todo = () => {
     setDeleteLoading(true);
     try {
       const todoId = id || selectedTodo?.id || selectedTodo?._id;
-      
+
       if (!todoId) {
         toast.error('Cannot delete: No ID found');
         return;
@@ -255,7 +255,7 @@ const Todo = () => {
       loadTodos();
     } catch (error) {
       console.error('Delete error:', error);
-      
+
       if (error.response?.status === 404) {
         toast.error('Todo not found. It may have already been deleted.');
       } else if (error.response?.status === 400) {
@@ -296,7 +296,7 @@ const Todo = () => {
 
   // Get status icon
   const getStatusIcon = (status) => {
-    switch(status) {
+    switch (status) {
       case 'completed': return <CheckSquare className="h-4 w-4" />;
       case 'in-progress': return <ArrowUpRight className="h-4 w-4" />;
       default: return <Square className="h-4 w-4" />;
@@ -313,8 +313,8 @@ const Todo = () => {
           </h2>
           <p className="text-gray-400">Manage your tasks efficiently</p>
         </div>
-        
-        <Button 
+
+        <Button
           onClick={() => setCreateDialogOpen(true)}
           className="gap-2 bg-white shadow-lg hover:shadow-xl transition-all"
         >
@@ -324,28 +324,30 @@ const Todo = () => {
       </div>
 
       {/* Filters */}
-      <div className="bg-transparent rounded-xl p-6 mb-8 mt-[-20px]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="flex flex-nowrap justify-center gap-2 w-full">
-            {[
-              { value: '', label: 'All' },
-              { value: 'pending', label: 'Pending' },
-              { value: 'in-progress', label: 'In Progress' },
-              { value: 'completed', label: 'Completed' }
-            ].map((option) => (
+      <div className="flex justify-center mb-8 mt-[-20px]">
+        <div className="inline-flex bg-gray-900/40 backdrop-blur-md border border-gray-700/50 rounded-xl p-1 shadow-lg">
+          {[
+            { value: '', label: 'All' },
+            { value: 'pending', label: 'Pending' },
+            { value: 'in-progress', label: 'In Progress' },
+            { value: 'completed', label: 'Completed' }
+          ].map((option, index) => (
+            <React.Fragment key={option.value}>
+              {index > 0 && (
+                <div className="w-px bg-gray-700/50 my-2"></div>
+              )}
               <button
-                key={option.value}
                 onClick={() => handleFilterChange(option.value)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
-                  filters.status === option.value
-                    ? 'bg-white text-gray-900 shadow-md'
-                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700'
-                }`}
+                className={`px-3 sm:px-6 py-2.5 text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap ${index === 0 ? 'rounded-l-lg' : index === 3 ? 'rounded-r-lg' : ''
+                  } ${filters.status === option.value
+                    ? 'bg-white/90 text-gray-900 shadow-sm'
+                    : 'text-gray-300 hover:text-white hover:bg-white/5'
+                  }`}
               >
                 {option.label}
               </button>
-            ))}
-          </div>
+            </React.Fragment>
+          ))}
         </div>
       </div>
 
@@ -362,7 +364,7 @@ const Todo = () => {
           <CardContent className="py-20 text-center">
             <div className="text-gray-400 text-6xl mb-4">📝</div>
             <h3 className="text-xl font-semibold text-gray-300 mb-2">No tasks found</h3>
-            
+
           </CardContent>
         </Card>
       ) : (
@@ -370,9 +372,9 @@ const Todo = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {todos.map((todo) => {
               const overdue = isOverdue(todo.deadline) && todo.status !== 'completed';
-              
+
               return (
-                <Card 
+                <Card
                   key={todo.id || todo._id}
                   className={`group ${getCardBackground(todo.status, overdue)} 
                     backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] 
@@ -384,18 +386,16 @@ const Todo = () => {
                   {overdue && (
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-red-600 animate-pulse" />
                   )}
-                  
+
                   <CardContent className="p-6">
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex-1">
-                        <h3 className={`text-lg font-semibold line-clamp-1 ${
-                          overdue ? 'text-red-200' : 'text-gray-100'
-                        }`}>
+                        <h3 className={`text-lg font-semibold line-clamp-1 ${overdue ? 'text-red-200' : 'text-gray-100'
+                          }`}>
                           {todo.title}
                         </h3>
-                        <p className={`text-sm mt-1 line-clamp-2 ${
-                          overdue ? 'text-red-300/80' : 'text-gray-400'
-                        }`}>
+                        <p className={`text-sm mt-1 line-clamp-2 ${overdue ? 'text-red-300/80' : 'text-gray-400'
+                          }`}>
                           {todo.description}
                         </p>
                       </div>
@@ -404,11 +404,10 @@ const Todo = () => {
                       </div>
                     </div>
 
-                    <div className={`flex items-center gap-2 text-sm mb-4 p-3 rounded-lg ${
-                      overdue 
-                        ? 'bg-red-900/30 border border-red-700/50' 
-                        : 'bg-gray-800/30'
-                    }`}>
+                    <div className={`flex items-center gap-2 text-sm mb-4 p-3 rounded-lg ${overdue
+                      ? 'bg-red-900/30 border border-red-700/50'
+                      : 'bg-gray-800/30'
+                      }`}>
                       <Calendar className={`h-4 w-4 ${overdue ? 'text-red-400' : 'text-gray-500'}`} />
                       <div>
                         <p className={`font-medium ${overdue ? 'text-red-300' : 'text-gray-300'}`}>
@@ -430,16 +429,15 @@ const Todo = () => {
                       )}
                     </div>
                   </CardContent>
-                  
+
                   <CardFooter className="p-4 pt-0">
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       size="sm"
-                      className={`w-full ${
-                        overdue 
-                          ? 'border-red-700/50 hover:bg-red-900/30 text-red-300 hover:text-red-200' 
-                          : 'border-gray-700 hover:bg-gray-800 text-gray-300 group-hover:border-gray-600'
-                      }`}
+                      className={`w-full ${overdue
+                        ? 'border-red-700/50 hover:bg-red-900/30 text-red-300 hover:text-red-200'
+                        : 'border-gray-700 hover:bg-gray-800 text-gray-300 group-hover:border-gray-600'
+                        }`}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleView(todo);
@@ -461,7 +459,7 @@ const Todo = () => {
                 Page {pagination.page} of {pagination.totalPages} •{' '}
                 {pagination.total} total tasks
               </div>
-              
+
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
@@ -472,7 +470,7 @@ const Todo = () => {
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
-                
+
                 <div className="flex items-center gap-1">
                   {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
                     let pageNum;
@@ -485,25 +483,24 @@ const Todo = () => {
                     } else {
                       pageNum = pagination.page - 2 + i;
                     }
-                    
+
                     return (
                       <Button
                         key={pageNum}
                         variant={pagination.page === pageNum ? "default" : "outline"}
                         size="sm"
                         onClick={() => handlePageChange(pageNum)}
-                        className={`min-w-[40px] ${
-                          pagination.page === pageNum
-                            ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                            : "border-gray-700 hover:bg-gray-800"
-                        }`}
+                        className={`min-w-[40px] ${pagination.page === pageNum
+                          ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                          : "border-gray-700 hover:bg-gray-800"
+                          }`}
                       >
                         {pageNum}
                       </Button>
                     );
                   })}
                 </div>
-                
+
                 <Button
                   variant="outline"
                   size="sm"
