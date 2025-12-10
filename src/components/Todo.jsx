@@ -324,7 +324,7 @@ const Todo = () => {
       </div>
 
       {/* Filters */}
-      <div className="flex justify-center mb-8 mt-[-20px]">
+      <div className="flex justify-center mb-8 mt-[-10px]">
         <div className="inline-flex bg-gray-900/40 backdrop-blur-md border border-gray-700/50 rounded-xl p-1 shadow-lg">
           {[
             { value: '', label: 'All' },
