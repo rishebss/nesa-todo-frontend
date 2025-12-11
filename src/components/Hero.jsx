@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Sparkles, Check, Zap, Calendar, ChevronDown } from 'lucide-react';
+import { FaGithub } from "react-icons/fa";
+
 import { Button } from './ui/button';
 
 const Hero = () => {
@@ -122,7 +124,7 @@ const Hero = () => {
                   className="gap-3 border-gray-700 hover:bg-gray-800 w-full sm:w-auto"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 >
-                  <Calendar className="h-5 w-5" />
+                  <FaGithub className="h-5 w-5" />
                   View GitHub
                   <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </Button>
