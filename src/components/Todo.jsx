@@ -491,7 +491,7 @@ const Todo = () => {
                         size="sm"
                         onClick={() => handlePageChange(pageNum)}
                         className={`min-w-[40px] ${pagination.page === pageNum
-                          ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                          ? "bg-white text-black"
                           : "border-gray-700 hover:bg-gray-800"
                           }`}
                       >
